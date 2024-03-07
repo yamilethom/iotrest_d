@@ -35,7 +35,7 @@ class UsersController extends Controller
          if($exist) return response()->json(['error'=>'el usuario ya existe'],400);
        }
         $user = User::find($id);
-        if($user) return response('',404);
+        if(!$user) return response('',404);
         $user->fill($request->all());
         if($request->password)
             $user->password= Hash::make($request->password);
@@ -45,7 +45,7 @@ class UsersController extends Controller
     //eliminar el usuario
     public function delete($id){
         $user = User::find($id);
-        if($user) return response('',404);
+        if(!$user) return response('',404);
         $user->delete();
         return $user;
     }
